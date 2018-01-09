@@ -34,17 +34,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - run:
           name: Directory Structure
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
       - run:
-          name: Deploy
-          command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ~/$APP_NAME/* root@$SERVER_IP:/apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
+          name: Deploy (SCP)
+          command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ~/$APP_NAME/[!.]* root@$SERVER_IP:/apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
+      - run:
+          name: Install dependencies remotely
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && pip install -r requirements.txt
       - run:
           name: Symlink
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP ln -s /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM /apps/$APP_NAME/current
