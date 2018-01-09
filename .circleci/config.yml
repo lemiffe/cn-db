@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -28,23 +28,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Where am I
-          command: pwd
-      - run:
-          name: List of stuff
-          command: ls -la
-      - run:
-          name: Go there
-          command: cd ~/cn-db
-      - run:
-          name: List of stuff 2
-          command: ls -la
-      - run:
-          name: Install requirements.txt
-          command: pip install -r requirements.txt
+          name: Install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - run:
           name: Deploy
-          command: ping $SERVER_IP
+          command: ping $SERVER_IP -c 4
       - run:
           name: Where am I 2
           command: pwd
