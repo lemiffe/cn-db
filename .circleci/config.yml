@@ -41,7 +41,7 @@ jobs:
             pip install -r requirements.txt
       - run:
           name: Deploy
-          command: scp -r ./* root@$SERVER_IP:/apps/ -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+          command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./* root@$SERVER_IP:/apps/
 
 workflows:
   version: 2
