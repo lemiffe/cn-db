@@ -40,6 +40,9 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run:
+          name: Test
+          command: ls -la /apps/$APP_NAME/releases/
+      - run:
           name: Directory Structure
           command: sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
       - run:
