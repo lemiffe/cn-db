@@ -29,7 +29,7 @@ jobs:
 
   deploy-job:
     docker:
-      - image: cn-db
+      - image: circleci/python:3.6.1
     working_directory: /cn-db
     steps:
       - run:
