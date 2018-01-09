@@ -22,7 +22,10 @@ jobs:
             pip install -r requirements.txt
       - run:
           name: Run Python Fixtures
-          command: python main.py
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            python main.py
 
   deploy-job:
     docker:
