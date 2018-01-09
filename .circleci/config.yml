@@ -44,7 +44,7 @@ jobs:
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && sudo pip install -r requirements.txt
       - run:
           name: Start Mongo container if not running
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && bash mongo_run.sh
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && sudo bash mongo_run.sh
       - run:
           name: Symlink
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP ln -s /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM /apps/$APP_NAME/current
