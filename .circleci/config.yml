@@ -22,15 +22,10 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-
   deploy-job:
     docker:
       - image: circleci/python:3.6.1
-    working_directory: /cn-db
+    working_directory: ~/cn-db
     steps:
       - run:
           name: Install requirements.txt
@@ -38,6 +33,12 @@ jobs:
       - run:
           name: Deploy
           command: ping $SERVER_IP
+      - run:
+          name: Where am I
+          command: pwd
+      - run:
+          name: List of stuff
+          command: ls -la ~/cn-db
 
 workflows:
   version: 2
