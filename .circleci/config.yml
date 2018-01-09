@@ -10,7 +10,7 @@ jobs:
       # Service dependencies
       - image: mongo
 
-    working_directory: ~/$APP_NAME
+    working_directory: ~/cn-db
 
     steps:
       - checkout
@@ -30,7 +30,7 @@ jobs:
   deploy-job:
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/$APP_NAME
+    working_directory: ~/cn-db
     steps:
       - checkout
       - run:
