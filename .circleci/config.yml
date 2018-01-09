@@ -28,16 +28,28 @@ jobs:
     working_directory: ~/cn-db
     steps:
       - run:
+          name: Where am I
+          command: pwd
+      - run:
+          name: List of stuff
+          command: ls -la
+      - run:
+          name: Go there
+          command: cd ~/cn-db
+      - run:
+          name: List of stuff 2
+          command: ls -la
+      - run:
           name: Install requirements.txt
           command: pip install -r requirements.txt
       - run:
           name: Deploy
           command: ping $SERVER_IP
       - run:
-          name: Where am I
+          name: Where am I 2
           command: pwd
       - run:
-          name: List of stuff
+          name: List of stuff 3
           command: ls -la ~/cn-db
 
 workflows:
