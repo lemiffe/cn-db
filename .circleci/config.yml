@@ -10,7 +10,7 @@ jobs:
       # Service dependencies
       - image: mongo
 
-    working_directory: ~/cn-db
+    working_directory: ~/$APP_NAME
 
     steps:
       - checkout
@@ -30,7 +30,7 @@ jobs:
   deploy-job:
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/cn-db
+    working_directory: ~/$APP_NAME
     steps:
       - checkout
       - run:
@@ -40,8 +40,14 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run:
+          name: Directory Structure
+          command: mkdir -p /apps/$APP_NAME/releases
+      - run:
           name: Deploy
-          command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ~/cn-db root@$SERVER_IP:/apps/
+          command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ~/$APP_NAME/* root@$SERVER_IP:/apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
+      - run:
+          name: Symlink
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP ln -s /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM /apps/$APP_NAME/current
 
 workflows:
   version: 2
