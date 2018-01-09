@@ -1,2 +1,3 @@
-# cn-db
-CN DB init
+# CN DB
+
+Init + Fixtures
