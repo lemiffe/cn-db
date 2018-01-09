@@ -14,7 +14,6 @@ jobs:
 
     steps:
       - checkout
-
       - run:
           name: install dependencies
           command: |
@@ -27,6 +26,7 @@ jobs:
       - image: circleci/python:3.6.1
     working_directory: ~/cn-db
     steps:
+      - checkout
       - run:
           name: Where am I
           command: pwd
