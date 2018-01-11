@@ -1,4 +1,6 @@
 #!/bin/bash
+shopt -s compat42 # For debian Jessie+ support
+
 cfg_parser ()
 {
     ini="$(<$1)"                # read the file

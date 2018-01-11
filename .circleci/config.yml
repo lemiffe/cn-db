@@ -1,6 +1,7 @@
 # Python CircleCI 2.0 configuration file
 # Details: https://circleci.com/docs/2.0/language-python/
 # NOTE: Before first deploy, set up environment variables mentioned below in CircleCI
+# TODO: Before removing symlink check if there is an existing config.ini and copy it to new release
 
 version: 2
 jobs:
