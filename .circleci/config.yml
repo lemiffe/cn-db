@@ -45,7 +45,7 @@ jobs:
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && sudo pip install -r requirements.txt
       - run:
           name: Symlink
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP rm /apps/$APP_NAME/current && ln -s /apps/$APP_NAME/current /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP ln -s /apps/$APP_NAME/current /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
       - run:
           name: Run fixtures & upgrade scripts (only runs if container is active)
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && python main.py
