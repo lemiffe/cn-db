@@ -1,0 +1,9 @@
+[mongo]
+db_name=primary
+db_user=john
+db_pwd=1jd019x1h9bsFdJD
+
+[docker]
+docker_port=27017
+docker_name=cn-db
+docker_volume_map=~/mongodata:/data/db

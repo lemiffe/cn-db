@@ -1,14 +1,16 @@
 # CN DB
 
-Init + Fixtures
+## Requirements
+
+- Docker
 
 ## Local
 
-- Run mongo_run.sh to start the mongo docker container
+- Run mongo_setup.sh to start the mongo docker container + set up the user, etc.
+- Use mongo_restart.sh if you need to restart your mongo container (if it crashed or you rebooted)
 - Run python main.py (or python3 main.py) to run the fixtures + database upgrade scripts
 
 ## Deploys + Remote
 
-- Deploy is automatic (circleci) after pushing to master branch
-- Before first deploy, start mongo container manually on server (see mongo_run.sh)
-- Server requirements: Docker
+- Deploy is automated (circleci) after pushing to master branch
+- After first deploy set up config.ini and then run mongo_setup.sh to set up a user and start the container
