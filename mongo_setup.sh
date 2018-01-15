@@ -52,12 +52,12 @@ fi
 
 # Start container with no auth
 echo "Start container with no auth..."
-docker run --name $docker_name -v ~/mongodata:/data/db --restart unless-stopped -d mongo
+docker run --name $docker_name -v "$docker_volume_map" -p $docker_port:$docker_port --restart unless-stopped -d mongo
 
 # Create user
 sleep 5
 echo "Create user..."
-docker exec -it $docker_name mongo --eval "db.createUser({user: '$db_user', pwd: '$db_pwd', roles: [{ role: 'readWrite', db:'$db_name'}]})"
+docker exec -it $docker_name mongo admin --eval "db.createUser({user: '$db_user', pwd: '$db_pwd', roles: ['root'] })"
 
 # Stop container
 echo "Stop container..."
@@ -70,5 +70,3 @@ docker rm $docker_name
 # Start container with auth
 echo "Start container with auth..."
 docker run --name $docker_name -v "$docker_volume_map" -p $docker_port:$docker_port --restart unless-stopped -d mongo --auth
-
-# Sample connection: mongo -u ianbobson -p bobpassglassmass
