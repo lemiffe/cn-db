@@ -1,7 +1,6 @@
 # Python CircleCI 2.0 configuration file
 # Details: https://circleci.com/docs/2.0/language-python/
 # NOTE: Before first deploy, set up environment variables mentioned below in CircleCI
-# TODO: Before removing symlink check if there is an existing config.ini and copy it to new release
 
 version: 2
 jobs:
@@ -56,6 +55,9 @@ jobs:
       - run:
           name: Run fixtures & upgrade scripts (only runs if container is active)
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && python main.py
+      - run:
+          name: Clean up old releases (keep 5)
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases && ls -1tr | tail -n +6 | xargs rm -rf --
 
 workflows:
   version: 2
