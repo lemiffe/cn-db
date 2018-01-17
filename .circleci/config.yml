@@ -1,5 +1,5 @@
 # Python CircleCI 2.0 configuration file
-# Details: https://circleci.com/docs/2.0/language-python/
+# Info: https://circleci.com/docs/2.0/language-python/
 # NOTE: Before first deploy, set up environment variables mentioned below in CircleCI
 
 version: 2
