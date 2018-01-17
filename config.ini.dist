@@ -1,7 +1,7 @@
 [mongo]
 db_name=primary
-db_user=john
-db_pwd=1jd019x1h9bsFdJD
+db_user=primaryuser
+db_pwd=primarypwd
 
 [docker]
 docker_port=27017
