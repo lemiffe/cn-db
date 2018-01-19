@@ -50,6 +50,10 @@ if [ "$RUNNING_STR" == "$docker_name" ]; then
     docker rm $docker_name
 fi
 
+# Create docker network (to link containers) called "cnetwork"
+# Note: Run this to verify it was created: docker network inspect cnetwork
+docker network create --driver bridge cnetwork
+
 # Start container with no auth
 echo "Start container with no auth..."
 docker run --name $docker_name -v "$docker_volume_map" -p $docker_port:$docker_port --restart unless-stopped -d mongo
@@ -69,4 +73,4 @@ docker rm $docker_name
 
 # Start container with auth
 echo "Start container with auth..."
-docker run --name $docker_name -v "$docker_volume_map" -p $docker_port:$docker_port --restart unless-stopped -d mongo --auth
+docker run --name $docker_name -v "$docker_volume_map" -p $docker_port:$docker_port --network=cnetwork --restart unless-stopped -d mongo --auth
