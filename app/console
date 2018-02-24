@@ -1,9 +1,5 @@
 #!/bin/bash
 CURR_DIR=$(basename "$PWD")
 APP_DIR='app'
-if [ "$CURR_DIR" = "$APP_DIR" ]; then
-    echo "Run this script from outside the app directory"
-    exit
-fi
 cd ${APP_DIR}
 python3 main.py "$@"
