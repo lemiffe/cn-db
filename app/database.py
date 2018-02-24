@@ -9,6 +9,7 @@ class Database:
         # Read config
         config = configparser.ConfigParser()
         config.read('config.ini')
+        print(config)
         self.db_name = config.get('mongo', 'db_name')
         self.user = urllib.parse.quote_plus(config['mongo']['db_user'])
         self.password = urllib.parse.quote_plus(config['mongo']['db_pwd'])
