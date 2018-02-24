@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Directory Structure
-          command: ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM"
+          command: ssh -t -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM"
       - run:
           name: Deploy (SCP)
           command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ~/$APP_NAME/[!.]* $SERVER_USER@$SERVER_IP:/apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
