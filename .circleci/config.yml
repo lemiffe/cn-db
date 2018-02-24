@@ -17,11 +17,10 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: pip install -r requirements.txt
+          command: sudo pip install -r requirements.txt
       - run:
           name: Run Python Fixtures
-          command: |
-            python3 app/main.py
+          command: python3 app/main.py
 
   deploy-job:
     docker:
