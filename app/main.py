@@ -6,6 +6,8 @@ from pymongo import errors
 try:
     db_loader = Database()
     db = db_loader.connect()
+    # TODO: Before executing any command, verify if environment is set up (mongo_setup.sh ran, etc.)
+
 except (errors.ServerSelectionTimeoutError, errors.PyMongoError, errors.ConnectionFailure) as inst:
     print("Can't connect to the Database: ", inst)
     sys.exit(1)

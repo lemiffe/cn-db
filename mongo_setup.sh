@@ -23,6 +23,8 @@ cfg_parser ()
     eval "$(echo "${ini[*]}")" # eval the result
 }
 
+cd app
+
 # Check if configuration exists
 if [ ! -f config.ini ]; then
     echo "Configuration file (config.ini) not found, please create a copy of config.ini.dist and modify it!"
