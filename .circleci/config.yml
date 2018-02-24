@@ -24,22 +24,22 @@ jobs:
       - checkout
       - run:
           name: Directory Structure
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM"
       - run:
           name: Deploy (SCP)
           command: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ~/$APP_NAME/[!.]* root@$SERVER_IP:/apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM
       - run:
           name: Install dependencies remotely
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && sudo pip install -r requirements.txt
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && sudo pip3 install -r requirements.txt"
       - run:
           name: Copy config.ini from previous release
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "[[ -e /apps/$APP_NAME/current/app/config.ini ]] && cp /apps/$APP_NAME/current/app/config.ini /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM/app/config.ini"
       - run:
           name: Remove Symlink
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP rm -f /apps/$APP_NAME/current || true
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "rm -f /apps/$APP_NAME/current || true"
       - run:
           name: Symlink
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP ln -s /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM /apps/$APP_NAME/current
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "ln -s /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM /apps/$APP_NAME/current"
       - run:
           name: Run fixtures & upgrade scripts (only runs if container is active)
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "cd /apps/$APP_NAME/current/app && python3 main.py"
