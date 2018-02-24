@@ -5,4 +5,5 @@ if [ "$CURR_DIR" = "$APP_DIR" ]; then
     echo "Run this script from outside the app directory"
     exit
 fi
-python3 app/main.py "$@"
+cd ${APP_DIR}
+python3 main.py "$@"

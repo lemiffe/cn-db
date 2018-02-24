@@ -33,7 +33,7 @@ jobs:
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM && sudo pip install -r requirements.txt
       - run:
           name: Copy config.ini from previous release
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "[[ -e /apps/$APP_NAME/current/config.ini ]] && cp /apps/$APP_NAME/current/config.ini /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM/config.ini"
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "[[ -e /apps/$APP_NAME/current/config.ini ]] && cp /apps/$APP_NAME/current/app/config.ini /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM/app/config.ini"
       - run:
           name: Remove Symlink
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP rm -f /apps/$APP_NAME/current || true
@@ -42,7 +42,7 @@ jobs:
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP ln -s /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM /apps/$APP_NAME/current
       - run:
           name: Run fixtures & upgrade scripts (only runs if container is active)
-          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/current && python3 app/main.py
+          command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP cd /apps/$APP_NAME/current/app && python3 main.py
       - run:
           name: Clean up old releases (keep 10 most recent)
           command: ssh -o StrictHostKeyChecking=no root@$SERVER_IP "cd /apps/$APP_NAME/releases && ls -1tr | head -n +11 | xargs rm -rf --"
