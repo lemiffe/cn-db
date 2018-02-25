@@ -23,11 +23,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Testing something
-          command: ls -la ~/.ssh
-      - run:
           name: Testing something 2
-          command: ~/.ssh/id_rsa.pub
+          command: head -c 50 ~/.ssh/id_rsa
       - run:
           name: Directory Structure
           command: ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "sudo mkdir -p /apps/$APP_NAME/releases/$APP_NAME-$CIRCLE_BUILD_NUM"
